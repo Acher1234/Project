@@ -1,10 +1,9 @@
-
 import passportLocal from "passport-local";
 import database from './DatabaseClass'
 import {Profile} from "passport";
 const GoogleTokenStrategy = require('passport-token-google2').Strategy
 var Strategie = passportLocal.Strategy;
-var data = database.CreateObject();
+var data = database.CreateObject();//verifier si une instance existe et l envoyer ou sinon en creer une
 import variable from "../Variable";
 
 
@@ -12,18 +11,17 @@ function passportInitialisation(passport:any) {
     passport.use(new Strategie(
         {
             usernameField: 'userName',
-            passwordField: 'Password'
+            passwordField: 'password'
         },
-        async function (userormail, password, done) {
-            var possible = await data.recupUserOnEmailPass(userormail, password);
+        async function (usernameField, passwordField, done) {
+            var possible = await data.recupUserOnEmailPassword(usernameField, passwordField);
             if (possible != null) {
                 return done(null, possible)
             }
-            possible = await data.recupUseronUsernamePass(userormail, password);
+            possible = await data.recupUseronUsernamePassword(usernameField, passwordField);
             if (possible != null) {
                 return done(null, possible)
             }
-            return done(null, false);
             return done(null, false);
         }
     ))

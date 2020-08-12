@@ -6,8 +6,8 @@ import {Profile} from "passport";
 
 class Database 
 {
-    static objet:Database;
-    static numberInstance = 0 ;
+    static instance:Database;
+    static numberInstance = 0;
     Ip = "127.0.0.1:27017";
     userName = "";//don't forget : if not empty...
     password = ""; //don't forget @ if not empty...
@@ -20,13 +20,13 @@ class Database
     {
         if(Database.numberInstance == 0)
         {
-            Database.objet = new Database();
+            Database.instance = new Database();
             Database.numberInstance++;
-            return Database.objet
+            return Database.instance
         }
         else
         {
-            return Database.objet;
+            return Database.instance;
         }
     }
 
@@ -40,8 +40,7 @@ class Database
             useUnifiedTopology: true
         });
         console.log('mongodb://' + this.userName + this.password + this.Ip + this.databaseName);
-        Database.objet = this;
-        Database.numberInstance+=1;
+        return this;
     }
 
     //Categorie
@@ -60,8 +59,6 @@ class Database
         });
         return tabReturn;
     } 
-
-
     giveCategorieModel():mongoose.Model<any, {}>
     {
     var ShemacCategorie = new mongoose.Schema({
@@ -97,19 +94,19 @@ class Database
         var findemail = await this.ModelUser.findOne({email:user.email})
         if(findemail != null)
         {
-            return 0;
+            return 0;//mail already exist
         }
         var finduser =await this.ModelUser.findOne({username:user.username})
         if(finduser != null)
         {
-            return 1;
+            return 1;//username already exist
         }
         var newuser = new this.ModelUser({email:user.email,nom:user.nom,prenom:user.prenom,username:user.username,password:passwordHash.generate(user.password),adress:user.adress,idGoogle:'0'})
         await newuser.save()
-        return 2;
+        return 2;//perfect
     }
 
-    async recupUserOnEmailPass(mailUser:string,passUser:string)
+    async recupUserOnEmailPassword(mailUser:string,passUser:string)
     {
        var recupUser:User = await this.ModelUser.findOne({email:mailUser});
        if(recupUser != null && passwordHash.verify(passUser,recupUser.password) && recupUser.password != "")
@@ -119,7 +116,7 @@ class Database
        return null;
     }
 
-    async recupUseronUsernamePass(userName:string,passUser:string)
+    async recupUseronUsernamePassword(userName:string,passUser:string)
     {
         var recupUser:User = await this.ModelUser.findOne({username:userName})
         if(recupUser != null && passwordHash.verify(passUser,recupUser.password) && recupUser.password != "")
@@ -137,15 +134,15 @@ class Database
 
     async Usergoogle(profil:Profile)
     {
-        var Userexist = await this.ModelUser.findOne({idGoogle:profil.id})
+        var userExist = await this.ModelUser.findOne({idGoogle:profil.id})
         var mail =  profil.emails?.pop()?.value;
-        var Emailexist = await this.ModelUser.findOne({email:mail})
-        if(Userexist == null)
+        var emailExist = await this.ModelUser.findOne({email:mail})
+        if(userExist == null)//pas inscrit par google
         {
-            if(Emailexist == null)
+            if(emailExist == null)//pas inscrit en normal
             {
                 this.AddUser(new User(mail,profil.name?.familyName,profil.name?.givenName,profil.username,"","",profil.id))
-                var Userexist = await this.ModelUser.findOne({idGoogle:profil.id})
+                var userExist = await this.ModelUser.findOne({idGoogle:profil.id})
             }
             else
             {
@@ -154,14 +151,14 @@ class Database
         }
         else
         {
-            return Userexist;
+            return userExist;
         }
     }
 
     //Object
     giveObjetModel()
     {
-        var shemaObjet = new mongoose.Schema(
+        var shemaObject = new mongoose.Schema(
             {
                 imagePath:{ type:String, default: ""},
                 Name:String,
@@ -169,7 +166,7 @@ class Database
                 ValuePerDay:Number
             }
         )
-        return mongoose.model("Objet",shemaObjet);
+        return mongoose.model("Objet",shemaObject);
     }
     async addObjetToDataBase(AddObject:Objet)
     {
@@ -179,7 +176,6 @@ class Database
     {
         await this.ModelObjet.find({}).skip(skipNumber*15).limit(15)
     }
-
 }
 
 export default Database;

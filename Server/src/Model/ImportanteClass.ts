@@ -8,7 +8,8 @@ class Connection
         this.connection = _connexion;
     }
 }
-class Categorie
+
+class Categorie//categorie class 
 {
     NameCategorie:string;
     imagePath:string;
@@ -20,6 +21,7 @@ class Categorie
         this.imagePath = Categorie.ImageFolder + Path;
     }
 }
+
 class User
 {
     imagePath:string = "";
@@ -42,7 +44,7 @@ class User
         this.adress =adress;
         this.idGoogle = idGoogle;
     }
-    changePictures(file:string)
+    changePictures(file:string)//get/set
     {
         this.imagePath = this.imagePath + file;
     }
