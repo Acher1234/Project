@@ -12,7 +12,7 @@ function addRoute(app:any,port:number,categorie:Categorie[],passport:any):void
 
     app.get('/', (req:any, res:any) =>
     {
-        res.send('!salut');
+        res.send('!');
     });
 
     app.get('/isConnected',(req:any, res:any)=>{
@@ -24,11 +24,6 @@ function addRoute(app:any,port:number,categorie:Categorie[],passport:any):void
         {
             res.json({isConnected:false})
         }
-    })
-
-    app.post('/HaveCategorie',(req:any,res:any)=>
-    {
-
     })
 
     app.get('/HaveCategorie',(req:any,res:any)=>
