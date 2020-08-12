@@ -14,13 +14,13 @@ function passportInitialisation(passport:any) {
             passwordField: 'password'
         },
         async function (usernameField, passwordField, done) {
-            var possible = await data.recupUserOnEmailPassword(usernameField, passwordField);
-            if (possible != null) {
-                return done(null, possible)
+            var possibleUser = await data.recupUserOnEmailPassword(usernameField, passwordField);
+            if (possibleUser != null) {
+                return done(null, possibleUser)
             }
-            possible = await data.recupUseronUsernamePassword(usernameField, passwordField);
-            if (possible != null) {
-                return done(null, possible)
+            possibleUser = await data.recupUseronUsernamePassword(usernameField, passwordField);
+            if (possibleUser != null) {
+                return done(null, possibleUser)
             }
             return done(null, false);
         }
@@ -35,18 +35,7 @@ function passportInitialisation(passport:any) {
             var user = await data.Usergoogle(profile);
             done(null, user);
         }));
-   /* passport.use(new GoogleStrategy({
-            clientID: variable.ClientID,
-            clientSecret: variable.clientSecret ,
-            callbackURL: '/google/redirect',
-            passReqToCallback:true
-        },
-        async function(accessToken: String, refreshToken: String, profile: Profile, cb: any) {
-            console.log(profile)
-            var user = await data.Usergoogle(profile);
-            cb(null,user);
-        }
-    ));*/
+
 
     passport.serializeUser(function (user: any, done: any) {
         done(null, user._id);

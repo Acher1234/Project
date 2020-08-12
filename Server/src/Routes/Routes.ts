@@ -9,10 +9,12 @@ function addRoute(app:any,port:number,categorie:Categorie[],passport:any):void
     {
         res.send('!');
     });
+
     app.get('/', (req:any, res:any) =>
     {
         res.send('!salut');
     });
+
     app.get('/isConnected',(req:any, res:any)=>{
         if(req.isAuthenticated())
         {
@@ -28,6 +30,7 @@ function addRoute(app:any,port:number,categorie:Categorie[],passport:any):void
     {
 
     })
+
     app.get('/HaveCategorie',(req:any,res:any)=>
     {
 
