@@ -5,6 +5,9 @@ import Connection from '../Model/Connection'
 import Categorie from '../Model/Categorie'
 import {Login} from './FonctionForRoutage'
 import variable from '../Variable'
+import Database from "../Model/DatabaseClass";
+
+const db = Database.CreateObject();
 
 function addRoute(app:any,port:number,categorie:Categorie[],passport:any):void
 {
@@ -60,6 +63,17 @@ function addRoute(app:any,port:number,categorie:Categorie[],passport:any):void
     app.get('/fail',(req:any,res:any)=>
     {
         res.send('error');
+    })
+    app.post('/createUser',(req:any,res:any)=>
+    {
+        if(req.user == undefined){
+            res.send('error');
+        }
+        else{
+            let user = new User(req.body.email,req.body.lastName,req.body.name,req.body.lastName, req.body.userName,req.body.password,0);
+            //user.changePictures(req.body.pic);
+            db.addUser(user)
+        }
     })
 
     app.listen(port, (err:any) => {

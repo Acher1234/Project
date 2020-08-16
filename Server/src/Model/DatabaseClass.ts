@@ -92,7 +92,7 @@ class Database
         return mongoose.model("User",shemaUser);
     }
 
-    async AddUser(user:User)
+    async addUser(user:User)
     {
         var findemail = await this.ModelUser.findOne({email:user.email})
         if(findemail != null)
@@ -104,7 +104,7 @@ class Database
         {
             return 1;//username already exist
         }
-        var newuser = new this.ModelUser({email:user.email,nom:user.nom,prenom:user.prenom,username:user.username,password:passwordHash.generate(user.password),adress:user.adress,idGoogle:'0'})
+        var newuser = new this.ModelUser({email:user.email,nom:user.nom,prenom:user.prenom,username:user.username,password:passwordHash.generate(user.password),address:user.address,idGoogle:'0'})
         await newuser.save()
         return 2;//perfect
     }
@@ -112,7 +112,7 @@ class Database
 
     async CreateTest()
     {
-        var x =await this.AddUser(new User('acherklein0@gmail.com','acher','benjamin','acklein','Poltronc01','26 rue Mouzaia',""));
+        var x =await this.addUser(new User('acherklein0@gmail.com','acher','benjamin','acklein','Poltronc01','26 rue Mouzaia',""));
         console.log(x);
     }
     
@@ -151,7 +151,7 @@ class Database
         {
             if(emailExist == null)//pas inscrit en normal
             {
-                this.AddUser(new User(mail,profil.name?.familyName,profil.name?.givenName,profil.username,"","",profil.id))
+                this.addUser(new User(mail,profil.name?.familyName,profil.name?.givenName,profil.username,"","",profil.id))
                 var userExist = await this.ModelUser.findOne({idGoogle:profil.id})
                 return userExist;
             }
