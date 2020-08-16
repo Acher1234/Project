@@ -1,6 +1,6 @@
 import e from "express";
 
-class Connection
+export class Connection
 {
     connection:boolean = false;
     constructor(_connexion:boolean)

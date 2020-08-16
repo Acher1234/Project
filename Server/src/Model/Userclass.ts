@@ -1,4 +1,4 @@
-class User
+export class User
 {
     imagePath:string = "";
     email:String | undefined;
@@ -7,17 +7,18 @@ class User
     idGoogle:any;
     username:string | undefined;
     password:string;
-    adress:string;
+    address:string;
     static ImagePath = "../../ImageFile/UserImage";
 
-    constructor(email: String | undefined, nom: String | undefined, prenom: String | undefined, username: string | undefined, password: string, adress: string, idGoogle: any)
+
+    constructor(email: String | undefined, nom: String | undefined, prenom: String | undefined, username: string | undefined, password: string, address: string, idGoogle: any)
     {
         this.email = email;
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;
         this.password = password;
-        this.adress =adress;
+        this.address =address;
         this.idGoogle = idGoogle;
     }
     changePictures(file:string)//get/set

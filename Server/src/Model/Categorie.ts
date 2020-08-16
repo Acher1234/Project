@@ -1,4 +1,4 @@
-class Categorie//categorie class 
+export class Categorie//categorie class
 {
     NameCategorie:string;
     imagePath:string;
