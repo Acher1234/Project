@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import {addRoute} from './Routes/Routes'
-import { Categorie,Connection,User } from './Model/ImportanteClass';
+import { Categorie,Connection,User } from './Model/Class';
 import Database from './Model/DatabaseClass'
 import session from "express-session";
 import passport from "passport";

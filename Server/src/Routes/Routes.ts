@@ -1,5 +1,5 @@
 import express from 'express'
-import {Categorie,Connection} from '../Model/ImportanteClass'
+import {Categorie,Connection} from '../Model/Class'
 import {Login} from './FonctionForRoutage'
 import variable from '../Variable'
 

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import {Categorie,User,Objet} from './ImportanteClass'
+import {Categorie,User,Objet} from './Class'
 import passwordHash from 'password-hash'
 import {Profile} from "passport";
 
