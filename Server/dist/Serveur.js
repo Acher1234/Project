@@ -72,7 +72,9 @@ function ServeurLaunch() {
                 case 0: return [4 /*yield*/, database.RecupCategorie()];
                 case 1:
                     categorie = _a.sent();
-                    console.log(categorie);
+                    return [4 /*yield*/, database.CreateTest()];
+                case 2:
+                    _a.sent();
                     Routes_1.addRoute(app, port, categorie, passport_1.default);
                     return [2 /*return*/];
             }

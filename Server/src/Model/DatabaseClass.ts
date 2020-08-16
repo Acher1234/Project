@@ -9,9 +9,9 @@ class Database
     static instance:Database;
     static numberInstance = 0;
     Ip = "127.0.0.1:27017";
-    userName = "";//don't forget : if not empty...
-    password = ""; //don't forget @ if not empty...
-    databaseName = "/ProjectWeb";
+    userName = "Acklein";//don't forget : if not empty...
+    password = "ProjectMahon"; //don't forget @ if not empty...
+    databaseName = "ProjectWeb";
     ModelCategorie:mongoose.Model<any>; 
     ModelUser:mongoose.Model<any>;
     ModelObjet:mongoose.Model<any>;
@@ -35,11 +35,11 @@ class Database
         this.ModelCategorie = this.giveCategorieModel();
         this.ModelUser = this.giveUserModel();
         this.ModelObjet = this.giveObjetModel()
-        mongoose.connect('mongodb://' + this.userName + this.password + this.Ip + this.databaseName, {
+        mongoose.connect('mongodb+srv://'+this.userName+':'+this.password+'@cluster0.0yfnx.azure.mongodb.net/'+this.databaseName+'?retryWrites=true&w=majority'
+            , {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-        console.log('mongodb://' + this.userName + this.password + this.Ip + this.databaseName);
         return this;
     }
 
@@ -106,6 +106,13 @@ class Database
         return 2;//perfect
     }
 
+
+    async CreateTest()
+    {
+        var x =await this.AddUser(new User('acherklein0@gmail.com','acher','benjamin','acklein','Poltronc01','26 rue Mouzaia',""));
+        console.log(x);
+    }
+    
     async recupUserOnEmailPassword(mailUser:string,passUser:string)
     {
        var recupUser:User = await this.ModelUser.findOne({email:mailUser});
@@ -143,10 +150,14 @@ class Database
             {
                 this.AddUser(new User(mail,profil.name?.familyName,profil.name?.givenName,profil.username,"","",profil.id))
                 var userExist = await this.ModelUser.findOne({idGoogle:profil.id})
+                return userExist;
             }
             else
             {
-                this.ModelUser.update({email:mail},{$set:{idGoogle:profil.id}})
+                console.log(profil);
+                await this.ModelUser.findOneAndUpdate({email:mail},{idGoogle:profil.id});
+                var userExist = await this.ModelUser.findOne({idGoogle:profil.id});
+                return userExist;
             }
         }
         else

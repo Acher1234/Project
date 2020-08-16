@@ -79,11 +79,10 @@ function passportInitialisation(passport) {
             var user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        console.log(profile);
-                        return [4 /*yield*/, data.Usergoogle(profile)];
+                    case 0: return [4 /*yield*/, data.Usergoogle(profile)];
                     case 1:
                         user = _a.sent();
+                        console.log(user);
                         done(null, user);
                         return [2 /*return*/];
                 }

@@ -45,17 +45,16 @@ var password_hash_1 = __importDefault(require("password-hash"));
 var Database = /** @class */ (function () {
     function Database() {
         this.Ip = "127.0.0.1:27017";
-        this.userName = ""; //don't forget : if not empty...
-        this.password = ""; //don't forget @ if not empty...
-        this.databaseName = "/ProjectWeb";
+        this.userName = "Acklein"; //don't forget : if not empty...
+        this.password = "ProjectMahon"; //don't forget @ if not empty...
+        this.databaseName = "ProjectWeb";
         this.ModelCategorie = this.giveCategorieModel();
         this.ModelUser = this.giveUserModel();
         this.ModelObjet = this.giveObjetModel();
-        mongoose_1.default.connect('mongodb://' + this.userName + this.password + this.Ip + this.databaseName, {
+        mongoose_1.default.connect('mongodb+srv://' + this.userName + ':' + this.password + '@cluster0.0yfnx.azure.mongodb.net/' + this.databaseName + '?retryWrites=true&w=majority', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-        console.log('mongodb://' + this.userName + this.password + this.Ip + this.databaseName);
         return this;
     }
     Database.CreateObject = function () {
@@ -149,6 +148,20 @@ var Database = /** @class */ (function () {
             });
         });
     };
+    Database.prototype.CreateTest = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var x;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.AddUser(new ImportanteClass_1.User('acherklein0@gmail.com', 'acher', 'benjamin', 'acklein', 'Poltronc01', '26 rue Mouzaia', ""))];
+                    case 1:
+                        x = _a.sent();
+                        console.log(x);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     Database.prototype.recupUserOnEmailPassword = function (mailUser, passUser) {
         return __awaiter(this, void 0, void 0, function () {
             var recupUser;
@@ -197,7 +210,7 @@ var Database = /** @class */ (function () {
     Database.prototype.Usergoogle = function (profil) {
         var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var userExist, mail, emailExist, userExist;
+            var userExist, mail, emailExist, userExist, userExist;
             return __generator(this, function (_e) {
                 switch (_e.label) {
                     case 0: return [4 /*yield*/, this.ModelUser.findOne({ idGoogle: profil.id })];
@@ -207,19 +220,25 @@ var Database = /** @class */ (function () {
                         return [4 /*yield*/, this.ModelUser.findOne({ email: mail })];
                     case 2:
                         emailExist = _e.sent();
-                        if (!(userExist == null)) return [3 /*break*/, 6];
+                        if (!(userExist == null)) return [3 /*break*/, 8];
                         if (!(emailExist == null)) return [3 /*break*/, 4];
                         this.AddUser(new ImportanteClass_1.User(mail, (_c = profil.name) === null || _c === void 0 ? void 0 : _c.familyName, (_d = profil.name) === null || _d === void 0 ? void 0 : _d.givenName, profil.username, "", "", profil.id));
                         return [4 /*yield*/, this.ModelUser.findOne({ idGoogle: profil.id })];
                     case 3:
                         userExist = _e.sent();
-                        return [3 /*break*/, 5];
+                        return [2 /*return*/, userExist];
                     case 4:
-                        this.ModelUser.update({ email: mail }, { $set: { idGoogle: profil.id } });
-                        _e.label = 5;
-                    case 5: return [3 /*break*/, 7];
-                    case 6: return [2 /*return*/, userExist];
-                    case 7: return [2 /*return*/];
+                        console.log(profil);
+                        return [4 /*yield*/, this.ModelUser.findOneAndUpdate({ email: mail }, { idGoogle: profil.id })];
+                    case 5:
+                        _e.sent();
+                        return [4 /*yield*/, this.ModelUser.findOne({ idGoogle: profil.id })];
+                    case 6:
+                        userExist = _e.sent();
+                        return [2 /*return*/, userExist];
+                    case 7: return [3 /*break*/, 9];
+                    case 8: return [2 /*return*/, userExist];
+                    case 9: return [2 /*return*/];
                 }
             });
         });

@@ -6,7 +6,7 @@ function addRoute(app, port, categorie, passport) {
         res.send('!');
     });
     app.get('/', function (req, res) {
-        res.send('!salut');
+        res.send('!');
     });
     app.get('/isConnected', function (req, res) {
         if (req.isAuthenticated()) {
@@ -15,8 +15,6 @@ function addRoute(app, port, categorie, passport) {
         else {
             res.json({ isConnected: false });
         }
-    });
-    app.post('/HaveCategorie', function (req, res) {
     });
     app.get('/HaveCategorie', function (req, res) {
     });

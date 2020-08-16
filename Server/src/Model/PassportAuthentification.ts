@@ -31,8 +31,8 @@ function passportInitialisation(passport:any) {
             clientSecret: variable.clientSecret
         },
         async function(accessToken:any, refreshToken:any, profile:any, done:any) {
-            console.log(profile)
             var user = await data.Usergoogle(profile);
+            console.log(user);
             done(null, user);
         }));
 

@@ -35,7 +35,7 @@ app.use(express.json());
 async function ServeurLaunch()
 {
   const categorie  = await database.RecupCategorie();
-  console.log(categorie);
+  await database.CreateTest();
   addRoute(app,port,categorie,passport);
 }
 ServeurLaunch();
