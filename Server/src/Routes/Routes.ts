@@ -1,5 +1,8 @@
 import express from 'express'
-import {Categorie,Connection} from '../Model/Class'
+import Objet from '../Model/Objet'
+import User from '../Model/Userclass'
+import Connection from '../Model/Connection'
+import Categorie from '../Model/Categorie'
 import {Login} from './FonctionForRoutage'
 import variable from '../Variable'
 
