@@ -6,6 +6,8 @@ import Categorie from '../Model/Categorie'
 import {Login} from './FonctionForRoutage'
 import variable from '../Variable'
 
+var
+
 function addRoute(app:any,port:number,categorie:Categorie[],passport:any):void
 {
     app.post('/', (req:any, res:any) =>
