@@ -8,3 +8,4 @@ Server/src/Variable.js
 Server/.idea
 Server/node_modules
 Server/src/Variable.ts
+/.gitignore
