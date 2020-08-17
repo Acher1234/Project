@@ -43,15 +43,13 @@ var mongoose_1 = __importDefault(require("mongoose"));
 var Userclass_1 = __importDefault(require("./Userclass"));
 var Categorie_1 = __importDefault(require("./Categorie"));
 var password_hash_1 = __importDefault(require("password-hash"));
+var Variable_1 = __importDefault(require("./../Variable"));
 var Database = /** @class */ (function () {
     function Database() {
-        this.userName = "Acklein"; //don't forget : if not empty...
-        this.password = "ProjectMahon"; //don't forget @ if not empty...
-        this.databaseName = "ProjectWeb";
         this.ModelCategorie = this.giveCategorieModel();
         this.ModelUser = this.giveUserModel();
         this.ModelObjet = this.giveObjetModel();
-        mongoose_1.default.connect('mongodb+srv://' + this.userName + ':' + this.password + '@cluster0.0yfnx.azure.mongodb.net/' + this.databaseName + '?retryWrites=true&w=majority', {
+        mongoose_1.default.connect(Variable_1.default.link, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
