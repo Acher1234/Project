@@ -5,16 +5,13 @@ import Connection from './Connection'
 import Categorie from './Categorie'
 import passwordHash from 'password-hash'
 import {Profile} from "passport";
+import variable from "./../Variable"
 
 
 class Database 
 {
     static instance:Database;
     static numberInstance = 0;
-    Ip = "127.0.0.1:27017";
-    userName = "Yaacov";//don't forget : if not empty...
-    password = "Yaacov"; //don't forget @ if not empty...
-    databaseName = "ProjectWeb";
     ModelCategorie:mongoose.Model<any>; 
     ModelUser:mongoose.Model<any>;
     ModelObjet:mongoose.Model<any>;
@@ -38,8 +35,8 @@ class Database
         this.ModelCategorie = this.giveCategorieModel();
         this.ModelUser = this.giveUserModel();
         this.ModelObjet = this.giveObjetModel()
-        mongoose.connect('mongodb+srv://'+this.userName+':'+this.password+'@projectwebmahon.irhxy.mongodb.net/'+this.databaseName+'?retryWrites=true&w=majority'
-            , {
+        mongoose.connect(variable.link,
+             {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
