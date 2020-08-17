@@ -5,7 +5,7 @@ var variable = {
     clientSecret:"VSQOoqERb8fUz2ZObdD0cyPQ",
     userName : "Acklein",//don't forget : if not empty...
     password : "ProjectMahon", //don't forget @ if not empty...
-    databaseName : "ProjectWeb",
+    databaseNampe : "ProjectWeb",
     link:'mongodb+srv://'+"Acklein"+':'+"ProjectMahon"+'@cluster0.0yfnx.azure.mongodb.net/'+"ProjectWeb"+'?retryWrites=true&w=majority'
 }
 
