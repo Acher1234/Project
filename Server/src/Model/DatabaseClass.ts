@@ -12,8 +12,8 @@ class Database
     static instance:Database;
     static numberInstance = 0;
     Ip = "127.0.0.1:27017";
-    userName = "Acklein";//don't forget : if not empty...
-    password = "ProjectMahon"; //don't forget @ if not empty...
+    userName = "Yaacov";//don't forget : if not empty...
+    password = "Yaacov"; //don't forget @ if not empty...
     databaseName = "ProjectWeb";
     ModelCategorie:mongoose.Model<any>; 
     ModelUser:mongoose.Model<any>;
@@ -38,7 +38,7 @@ class Database
         this.ModelCategorie = this.giveCategorieModel();
         this.ModelUser = this.giveUserModel();
         this.ModelObjet = this.giveObjetModel()
-        mongoose.connect('mongodb+srv://'+this.userName+':'+this.password+'@cluster0.0yfnx.azure.mongodb.net/'+this.databaseName+'?retryWrites=true&w=majority'
+        mongoose.connect('mongodb+srv://'+this.userName+':'+this.password+'@projectwebmahon.irhxy.mongodb.net/'+this.databaseName+'?retryWrites=true&w=majority'
             , {
             useNewUrlParser: true,
             useUnifiedTopology: true

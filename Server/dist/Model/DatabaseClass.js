@@ -40,18 +40,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = __importDefault(require("mongoose"));
-var ImportanteClass_1 = require("./ImportanteClass");
+var Userclass_1 = __importDefault(require("./Userclass"));
+var Categorie_1 = __importDefault(require("./Categorie"));
 var password_hash_1 = __importDefault(require("password-hash"));
 var Database = /** @class */ (function () {
     function Database() {
         this.Ip = "127.0.0.1:27017";
-        this.userName = "Acklein"; //don't forget : if not empty...
-        this.password = "ProjectMahon"; //don't forget @ if not empty...
+        this.userName = "Yaacov"; //don't forget : if not empty...
+        this.password = "Yaacov"; //don't forget @ if not empty...
         this.databaseName = "ProjectWeb";
         this.ModelCategorie = this.giveCategorieModel();
         this.ModelUser = this.giveUserModel();
         this.ModelObjet = this.giveObjetModel();
-        mongoose_1.default.connect('mongodb+srv://' + this.userName + ':' + this.password + '@cluster0.0yfnx.azure.mongodb.net/' + this.databaseName + '?retryWrites=true&w=majority', {
+        mongoose_1.default.connect('mongodb+srv://' + this.userName + ':' + this.password + '@projectwebmahon.irhxy.mongodb.net/' + this.databaseName + '?retryWrites=true&w=majority', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
@@ -94,7 +95,7 @@ var Database = /** @class */ (function () {
                     case 1:
                         tempCategorie = _a.sent();
                         tempCategorie.forEach(function (element) {
-                            tabReturn.push(new ImportanteClass_1.Categorie(element.categorieName, element.ImagePath));
+                            tabReturn.push(new Categorie_1.default(element.categorieName, element.ImagePath));
                         });
                         return [2 /*return*/, tabReturn];
                 }
@@ -122,7 +123,7 @@ var Database = /** @class */ (function () {
         });
         return mongoose_1.default.model("User", shemaUser);
     };
-    Database.prototype.AddUser = function (user) {
+    Database.prototype.addUser = function (user) {
         return __awaiter(this, void 0, void 0, function () {
             var findemail, finduser, newuser;
             return __generator(this, function (_a) {
@@ -139,7 +140,7 @@ var Database = /** @class */ (function () {
                         if (finduser != null) {
                             return [2 /*return*/, 1]; //username already exist
                         }
-                        newuser = new this.ModelUser({ email: user.email, nom: user.nom, prenom: user.prenom, username: user.username, password: password_hash_1.default.generate(user.password), adress: user.adress, idGoogle: '0' });
+                        newuser = new this.ModelUser({ email: user.email, nom: user.nom, prenom: user.prenom, username: user.username, password: password_hash_1.default.generate(user.password), address: user.address, idGoogle: '0' });
                         return [4 /*yield*/, newuser.save()];
                     case 3:
                         _a.sent();
@@ -153,7 +154,7 @@ var Database = /** @class */ (function () {
             var x;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.AddUser(new ImportanteClass_1.User('acherklein0@gmail.com', 'acher', 'benjamin', 'acklein', 'Poltronc01', '26 rue Mouzaia', ""))];
+                    case 0: return [4 /*yield*/, this.addUser(new Userclass_1.default('acherklein0@gmail.com', 'acher', 'benjamin', 'acklein', 'Poltronc01', '26 rue Mouzaia', ""))];
                     case 1:
                         x = _a.sent();
                         console.log(x);
@@ -222,7 +223,7 @@ var Database = /** @class */ (function () {
                         emailExist = _e.sent();
                         if (!(userExist == null)) return [3 /*break*/, 8];
                         if (!(emailExist == null)) return [3 /*break*/, 4];
-                        this.AddUser(new ImportanteClass_1.User(mail, (_c = profil.name) === null || _c === void 0 ? void 0 : _c.familyName, (_d = profil.name) === null || _d === void 0 ? void 0 : _d.givenName, profil.username, "", "", profil.id));
+                        this.addUser(new Userclass_1.default(mail, (_c = profil.name) === null || _c === void 0 ? void 0 : _c.familyName, (_d = profil.name) === null || _d === void 0 ? void 0 : _d.givenName, profil.username, "", "", profil.id));
                         return [4 /*yield*/, this.ModelUser.findOne({ idGoogle: profil.id })];
                     case 3:
                         userExist = _e.sent();

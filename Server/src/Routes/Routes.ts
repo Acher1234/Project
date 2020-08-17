@@ -9,7 +9,6 @@ import Database from "../Model/DatabaseClass";
 
 const db = Database.CreateObject();
 
-var
 
 function addRoute(app:any,port:number,categorie:Categorie[],passport:any):void
 {
